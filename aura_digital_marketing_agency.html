@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Digital | High-Impact Marketing & Creative Agency</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0f172a',
+                            card: '#1e293b',
+                            accent: '#6366f1',
+                            purple: '#8b5cf6',
+                            cyan: '#06b6d4',
+                            emerald: '#10b981'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card-hover:hover {
+            transform: translateY(-5px);
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.15);
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Animated Background Gradients */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.25;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6366f1;
+        }
+
+        /* Modal Transition */
+        .modal-backdrop {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+    </style>
+</head>
+<body class="antialiased text-slate-200 selection:bg-brand-accent selection:text-white relative">
+
+    <!-- Background Ambient Glow Orbs -->
+    <div class="glow-orb w-[500px] h-[500px] bg-brand-purple top-[-100px] left-[-100px]"></div>
+    <div class="glow-orb w-[600px] h-[600px] bg-brand-accent top-[30%] right-[-150px]"></div>
+    <div class="glow-orb w-[500px] h-[500px] bg-brand-cyan bottom-[10%] left-[-100px]"></div>
+
+    <header class="fixed w-full top-0 z-40 bg-slate-900/80 backdrop-blur-md border-b border-slate-800/80 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#home" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-purple to-brand-cyan flex items-center justify-center text-white font-extrabold text-xl shadow-lg shadow-brand-purple/20 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid font-bold fa-bolt text-lg"></i>
+                </div>
+                <span class="text-xl font-extrabold text-white tracking-tight">
+                    AURA <span class="text-gradient">DIGITAL</span>
+                </span>
+            </a>
+            
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden lg:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="#home" class="hover:text-brand-cyan transition-colors">Home</a>
+                <a href="#pricing" class="hover:text-brand-cyan transition-colors">Pricing Plans</a>
+                <a href="#creator-pack" class="hover:text-brand-cyan transition-colors flex items-center gap-1.5"><i class="fa-solid fa-clapperboard text-brand-purple"></i> Creator Pack</a>
+                <a href="#about" class="hover:text-brand-cyan transition-colors">About Agency</a>
+                <a href="#contact" class="hover:text-brand-cyan transition-colors">Contact</a>
+            </nav>
+
+            <!-- Navigation Action CTA -->
+            <div class="hidden lg:flex items-center space-x-4">
+                <a href="#pricing" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-accent text-white text-sm font-semibold hover:shadow-lg hover:shadow-brand-purple/30 hover:scale-[1.02] active:scale-95 transition-all duration-200">
+                    Get Started
+                </a>
+            </div>
+
+            <!-- Mobile Drawer Button -->
+            <button id="mobile-menu-btn" class="lg:hidden text-slate-300 hover:text-white p-2 focus:outline-none" aria-label="Toggle Navigation Menu">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer Navigation -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-slate-900/95 border-b border-slate-800 backdrop-blur-xl absolute w-full left-0 top-20 shadow-2xl transition-all">
+            <nav class="flex flex-col px-6 py-6 space-y-4 text-slate-200 font-medium">
+                <a href="#home" class="mobile-link py-2 border-b border-slate-800 hover:text-brand-cyan transition-colors">Home</a>
+                <a href="#pricing" class="mobile-link py-2 border-b border-slate-800 hover:text-brand-cyan transition-colors">Pricing Plans</a>
+                <a href="#creator-pack" class="mobile-link py-2 border-b border-slate-800 hover:text-brand-cyan transition-colors flex items-center gap-2"><i class="fa-solid fa-clapperboard text-brand-purple"></i> Creator Pack</a>
+                <a href="#about" class="mobile-link py-2 border-b border-slate-800 hover:text-brand-cyan transition-colors">About Agency</a>
+                <a href="#contact" class="mobile-link py-2 hover:text-brand-cyan transition-colors">Contact</a>
+                <a href="#pricing" class="mobile-link w-full text-center py-3 rounded-xl bg-gradient-to-r from-brand-purple to-brand-accent text-white font-semibold shadow-lg">
+                    Get Started
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="min-h-screen pt-32 pb-20 px-6 relative flex items-center justify-center">
+            <div class="max-w-7xl mx-auto text-center z-10">
+                <!-- Highlight Pill Badge -->
+                <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass-card border border-brand-purple/30 mb-8 animate-pulse">
+                    <span class="w-2 h-2 rounded-full bg-brand-emerald"></span>
+                    <span class="text-xs font-semibold text-slate-300 uppercase tracking-widest">
+                        #1 Digital Marketing & Creative Growth Partner
+                    </span>
+                </div>
+
+                <!-- Main Headline -->
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white mb-8 leading-[1.15]">
+                    Accelerate Your Brand Growth with <br class="hidden sm:inline" />
+                    <span class="text-gradient">High-Impact Marketing & Creative Design</span>
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="text-slate-300 text-lg sm:text-xl max-w-3xl mx-auto mb-10 leading-relaxed font-normal">
+                    We combine data-driven social ad strategies with stunning visual creative—from viral reels to high-converting YouTube thumbnails and brand posters.
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+                    <a href="#pricing" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-brand-purple via-brand-accent to-brand-cyan text-white text-base font-bold shadow-xl shadow-brand-purple/25 hover:shadow-2xl hover:shadow-brand-purple/40 hover:scale-105 active:scale-95 transition-all duration-300">
+                        Explore Payment Plans <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                    </a>
+                    <a href="#contact" class="w-full sm:w-auto px-8 py-4 rounded-full glass-card text-white text-base font-semibold hover:bg-slate-800/80 hover:border-slate-600 transition-all duration-300">
+                        Book a Free Consultation
+                    </a>
+                </div>
+
+            
+            </div>
+        </section>
+
+        <section id="pricing" class="py-24 px-6 relative">
+            <div class="max-w-7xl mx-auto">
+                <!-- Section Header -->
+                <div class="text-center mb-12">
+                    <h2 class="text-xs font-bold text-brand-purple tracking-widest uppercase mb-3">Transparent Payment Plans</h2>
+                    <h3 class="text-3xl sm:text-5xl font-black text-white mb-6">Choose Your Growth Accelerator Plan</h3>
+                    <p class="text-slate-400 max-w-2xl mx-auto text-base">Select from our 5 flexible pricing plans tailored for every business stage in Sri Lankan Rupees (LKR).</p>
+
+                    <!-- Billing Toggle -->
+                    <div class="flex items-center justify-center mt-10 space-x-4">
+                        <span id="monthly-label" class="text-sm font-semibold text-white">Monthly Billing</span>
+                        
+                        <button id="billing-toggle" class="w-16 h-8 bg-slate-800 border border-slate-700 rounded-full p-1 relative transition-colors focus:outline-none" aria-label="Toggle Billing Interval">
+                            <div id="toggle-circle" class="w-6 h-6 bg-gradient-to-r from-brand-purple to-brand-cyan rounded-full transition-transform transform translate-x-0 shadow-md"></div>
+                        </button>
+
+                        <span id="annual-label" class="text-sm font-semibold text-slate-400 flex items-center">
+                            Annual Billing
+                            <span class="ml-2 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-brand-emerald/20 text-brand-emerald border border-brand-emerald/40 uppercase tracking-wider">
+                                Save 20%
+                            </span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 5 Pricing Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 items-stretch">
+                    
+                    <!-- Plan 1: Advisory Starter -->
+                    <div class="glass-card p-8 rounded-3xl flex flex-col justify-between border border-slate-800 hover:border-slate-700 transition-all">
+                        <div>
+                            <div class="text-sm font-bold text-brand-cyan uppercase tracking-wider mb-2">Plan 01</div>
+                            <h4 class="text-2xl font-bold text-white mb-4">Marketing Advisory</h4>
+                            <p class="text-slate-400 text-sm mb-6">Perfect for creators & business owners needing clear directional advice and social media guidance.</p>
+
+                            <div class="mb-8">
+                                <span class="price-val text-4xl sm:text-5xl font-black text-white" data-monthly="Rs. 5,000" data-annual="Rs. 4,000">Rs. 5,000</span>
+                                <span class="billing-period text-slate-400 font-medium text-sm">/ month</span>
+                                <div class="annual-note text-xs text-brand-emerald font-semibold mt-1 hidden">Billed annually (Rs. 48,000/yr)</div>
+                            </div>
+
+                            <ul class="space-y-4 text-sm text-slate-300 mb-8 border-t border-slate-800 pt-6">
+                                <li class="flex items-start"><i class="fa-solid fa-circle-check text-brand-cyan mt-1 mr-3"></i> Social Media Marketing Advice</li>
+                                <li class="flex items-start"><i class="fa-solid fa-circle-check text-brand-cyan mt-1 mr-3"></i> Channel & Profile Audit Breakdown</li>
+                                <li class="flex items-start"><i class="fa-solid fa-circle-check text-brand-cyan mt-1 mr-3"></i> Strategic Growth Roadmap</li>
+                                <li class="flex items-start"><i class="fa-solid fa-circle-check text-brand-cyan mt-1 mr-3"></i> Trending Content Strategy</li>
+                            </ul>
+                        </div>
+
+                        <button onclick="openPlanModal('Marketing Advisory Plan', 'Rs. 5,000', 'Rs. 4,000')" class="w-full py-4 rounded-2xl glass-card border border-slate-700 text-white font-bold hover:bg-slate-800 hover:border-brand-cyan transition-all duration-200">
+                            Get Advisory Plan
+                        </button>
+                    </div>
+
+                    <!-- Plan 2: TikTok & WhatsApp Growth (SPECIALIZED) -->
+                    <div class="glass-card p-8 rounded-3xl flex flex-col justify-between border-2 border-emerald-500/80 relative bg-slate-900/90 shadow-2xl shadow-emerald-500/20">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 text-white text-xs font-bold uppercase tracking-widest shadow-md flex items-center gap-2">
+                            <i class="fa-brands fa-tiktok"></i> <i class="fa-brands fa-whatsapp"></i> TikTok & WhatsApp Special
+                        </div>
+
+                        <div>
+                            <div class="text-sm font-bold text-emerald-400 uppercase tracking-wider mb-2">Plan 02</div>
+                            <h4 class="text-2xl font-bold text-white mb-4">TikTok & WhatsApp Growth</h4>
+                            <p class="text-slate-400 text-sm mb-6">Designed specifically for driving viral TikTok engagement and closing sales directly via WhatsApp.</p>
+
+                            <div class="mb-8">
+                                <span class="price-val text-4xl sm:text-5xl font-black text-white" data-monthly="Rs. 20,000" data-annual="Rs. 14,400">Rs. 20,000</span>
+                                <span class="billing-period text-slate-400 font-medium text-sm">/ month</span>
+                                <div class="annual-note text-xs text-brand-emerald font-semibold mt-1 hidden">Billed annually (Rs. 180,800/yr)</div>
+                            </div>
+
+                            <ul class="space-y-4 text-sm text-slate-300 mb-8 border-t border-slate-800 pt-6">
+                                <li class="flex items-start"><i class="fa-brands fa-tiktok text-emerald-400 text-base mt-1 mr-3"></i> 5 Viral Short Video Edits for TikTok</li>
+                                <li class="flex items-start"><i class="fa-solid fa-circle-check text-emerald-400 mt-1 mr-3"></i> TikTok Hashtag & Trend Optimization</li>
+                                <li class="flex items-start"><i class="fa-brands fa-whatsapp text-emerald-400 text-base mt-1 mr-3"></i> WhatsApp Business Lead Funnel Setup</li>
+                                <li class="flex items-start"><i class="fa-solid fa-circle-check text-emerald-400 mt-1 mr-3"></i> Instant Auto-Responder Script Templates</li>
+                                <li class="flex items-start"><i class="fa-solid fa-circle-check text-emerald-400 mt-1 mr-3"></i> Click-to-WhatsApp Ad Strategy</li>
+                            </ul>
+                        </div>
+
+                        <button onclick="openPlanModal('TikTok & WhatsApp Growth Plan', 'Rs. 20,000', 'Rs. 14,400')" class="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 text-white font-extrabold shadow-lg hover:brightness-110 transition-all duration-200">
+                            Get TikTok & WhatsApp Plan
+                        </button>
+                    </div>
+
+                    <!-- Plan 3: Growth Creative (Pro) -->
+                    <div class="glass-card p-8 rounded-3xl flex flex-col justify-between border-2 border-brand-purple relative bg-slate-900/90 shadow-2xl shadow-brand-purple/20">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-brand-purple to-brand-accent text-white text-xs font-bold uppercase tracking-widest shadow-md">
+                            Most Popular Choice
+                        </div>
+
+                        <div>
+                            <div class="text-sm font-bold text-brand-purple uppercase tracking-wider mb-2">Plan 03</div>
+                            <h4 class="text-2xl font-bold text-white mb-4">Pro Growth Package</h4>
+                            <p class="text-slate-400 text-sm mb-6">For brands needing custom poster graphics, page management, and social content scheduling.</p>
+
+                            <div class="mb-8">
+                                <span class="price-val text-4xl sm:text-5xl font-black text-white" data-monthly="Rs. 35,000" data-annual="Rs. 28,000">Rs. 35,000</span>
+                                <span class="billing-period text-slate-400 font-medium text-sm">/ month</span>
+                                <div class="annual-note text-xs text-brand-emerald font-semibold mt-1 hidden">Billed annually (Rs. 336,000/yr)</div>
+                            </div>
+
+                            <ul class="space-y-4 text-sm text-slate-300 mb-8 border-t border-slate-800 pt-6">
+                                <li class="flex items-start"><i class="fa-solid fa-circle-check text-brand-purple mt-1 mr-3"></i> Tiktok,Youtube Strategy & Advice</li>
+                                <li class="flex items-start"><i class="fa-solid fa-circle-check text-brand-purple mt-1 mr-3"></i> 8 Custom Graphic Designs / Posters</li>
+                                <li class="flex items-start"><i class="fa-solid fa-circle-check text-brand-purple mt-1 mr-3"></i> High CTR YouTube Thumbnails</li>
+                                <li class="flex items-start"><i class="fa-solid fa-circle-check text-brand-purple mt-1 mr-3"></i> Full Social Page Management</li>
+                            </ul>
+                        </div>
+
+                        <button onclick="openPlanModal('Pro Growth Package', 'Rs. 35,000', 'Rs. 28,000')" class="w-full py-4 rounded-2xl bg-gradient-to-r from-brand-purple via-brand-accent to-brand-cyan text-white font-extrabold shadow-xl shadow-brand-purple/30 hover:scale-[1.02] active:scale-95 transition-all duration-200">
+                            Choose Pro Package
+                        </button>
+                    </div>
+
+                    <!-- Plan 4: Creator Video Pack -->
+                    <div class="glass-card p-8 rounded-3xl flex flex-col justify-between border border-pink-500/40 hover:border-pink-500/70 transition-all">
+                        <div>
+                            <div class="text-sm font-bold text-pink-400 uppercase tracking-wider mb-2">Plan 04</div>
+                            <h4 class="text-2xl font-bold text-white mb-4">Creator Video Bundle</h4>
+                            <p class="text-slate-400 text-sm mb-6">Complete video editing suite for YouTube channels, gaming montages, and Instagram Reels.</p>
+
+                            <div class="mb-8">
+                                <span class="price-val text-4xl sm:text-5xl font-black text-white" data-monthly="Rs. 55,000" data-annual="Rs. 44,000">Rs. 55,000</span>
+                                <span class="billing-period text-slate-400 font-medium text-sm">/ month</span>
+                                <div class="annual-note text-xs text-brand-emerald font-semibold mt-1 hidden">Billed annually (Rs. 528,000/yr)</div>
+                            </div>
+
+                            <ul class="space-y-4 text-sm text-slate-300 mb-8 border-t border-slate-800 pt-6">
+                                <li class="flex items-start"><i class="fa-solid fa-circle-check text-pink-400 mt-1 mr-3"></i> 12 Short-Form Reels / Shorts</li>
+                                <li class="flex items-start"><i class="fa-solid fa-circle-check text-pink-400 mt-1 mr-3"></i> 2 Long-Form YouTube Video Edits</li>
+                                <li class="flex items-start"><i class="fa-solid fa-circle-check text-pink-400 mt-1 mr-3"></i> 2 High CTR Custom Thumbnails</li>
+                                <li class="flex items-start"><i class="fa-solid fa-circle-check text-pink-400 mt-1 mr-3"></i> Motion Graphics & Sound Effects</li>
+                            </ul>
+                        </div>
+
+                        <button onclick="openPlanModal('Creator Video Bundle', 'Rs. 55,000', 'Rs. 44,000')" class="w-full py-4 rounded-2xl glass-card border border-pink-500/40 text-white font-bold hover:bg-slate-800 hover:border-pink-500 transition-all duration-200">
+                            Select Video Pack
+                        </button>
+                    </div>
+
+                    <!-- Plan 5: Enterprise Scale -->
+                    <div class="glass-card p-8 rounded-3xl flex flex-col justify-between border border-slate-800 hover:border-slate-700 transition-all md:col-span-2 lg:col-span-1">
+                        <div>
+                            <div class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Plan 05</div>
+                            <h4 class="text-2xl font-bold text-white mb-4">Full Scale Agency</h4>
+                            <p class="text-slate-400 text-sm mb-6">Complete marketing department including paid Meta/Google ads, funnels, and account management.</p>
+
+                            <div class="mb-8">
+                                <span class="price-val text-4xl sm:text-5xl font-black text-white" data-monthly="Rs. 100,000" data-annual="Rs. 68,000">Rs. 100,000</span>
+                                <span class="billing-period text-slate-400 font-medium text-sm">/ month</span>
+                                <div class="annual-note text-xs text-brand-emerald font-semibold mt-1 hidden">Billed annually (Rs. 816,000/yr)</div>
+                            </div>
+
+                            <ul class="space-y-4 text-sm text-slate-300 mb-8 border-t border-slate-800 pt-6">
+                                <li class="flex items-start"><i class="fa-solid fa-circle-check text-brand-emerald mt-1 mr-3"></i> Meta & Google Paid Ads Setup</li>
+                                <li class="flex items-start"><i class="fa-solid fa-circle-check text-brand-emerald mt-1 mr-3"></i> Unlimited Graphic & Poster Revisions</li>
+                                <li class="flex items-start"><i class="fa-solid fa-circle-check text-brand-emerald mt-1 mr-3"></i> Full-Funnel Conversion Optimization</li>
+                                <li class="flex items-start"><i class="fa-solid fa-circle-check text-brand-emerald mt-1 mr-3"></i> Dedicated Account Manager</li>
+                            </ul>
+                        </div>
+
+                        <button onclick="openPlanModal('Full Scale Agency Package', 'Rs. 100,000', 'Rs. 68,000')" class="w-full py-4 rounded-2xl glass-card border border-slate-700 text-white font-bold hover:bg-slate-800 hover:border-brand-emerald transition-all duration-200">
+                            Request Scale Plan
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="creator-pack" class="py-24 px-6 relative bg-slate-950/70 border-t border-b border-slate-800/80">
+            <div class="max-w-7xl mx-auto">
+                <!-- Section Header -->
+                <div class="text-center mb-16">
+                    <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-card border border-pink-500/40 mb-4">
+                        <i class="fa-solid fa-film text-pink-400"></i>
+                        <span class="text-xs font-bold text-pink-400 uppercase tracking-widest">Specialized Video Production</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-5xl font-black text-white mb-4">Creator Video Pack</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto text-base">High-energy video editing, viral short-form Reels, TikToks, YouTube montages, sound design, and custom thumbnails engineered for high retention.</p>
+                </div>
+
+                <!-- Creator Pack Video Tiers -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Creator Tier 1: Shorts & Reels Pack -->
+                    <div class="glass-card p-8 rounded-3xl border border-pink-500/30 hover:border-pink-500/60 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-pink-500/20 flex items-center justify-center text-pink-400 text-xl mb-4">
+                                <i class="fa-solid fa-mobile-screen-button"></i>
+                            </div>
+                            <span class="text-xs font-bold text-pink-400 uppercase tracking-wider">Shorts & Reels</span>
+                            <h3 class="text-2xl font-bold text-white my-2">Creator Lite Pack</h3>
+                            <p class="text-xs text-slate-400 mb-6">Built for TikTok, YouTube Shorts, & Instagram Reels creators looking for quick viral edits.</p>
+                            
+                            <div class="mb-6">
+                                <span class="text-4xl font-black text-white">Rs. 20,000</span>
+                                <span class="text-slate-400 text-xs font-medium">/ month</span>
+                            </div>
+
+                            <ul class="space-y-3 text-xs text-slate-300 border-t border-slate-800 pt-5 mb-6">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-pink-400 mr-2.5"></i> 4 Edited Short-Form Videos (60s max)</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-pink-400 mr-2.5"></i> Subtitles & Animated Captions</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-pink-400 mr-2.5"></i> Custom Sound Design & Trending SFX</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-pink-400 mr-2.5"></i> Pacing & Retention Hook Editing</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-pink-400 mr-2.5"></i> Fast 48-Hour Turnaround</li>
+                            </ul>
+                        </div>
+                        <button onclick="openPlanModal('Creator Lite Video Pack', 'Rs. 20,000', 'Rs. 20,000')" class="w-full py-3.5 rounded-xl bg-pink-500/20 hover:bg-pink-500/40 text-pink-300 font-bold border border-pink-500/40 transition-all">
+                            Select Creator Lite
+                        </button>
+                    </div>
+
+                    <!-- Creator Tier 2: Pro Creator Pack -->
+                    <div class="glass-card p-8 rounded-3xl border-2 border-brand-purple bg-slate-900/90 shadow-xl shadow-brand-purple/20 flex flex-col justify-between transform md:-translate-y-2">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-brand-purple/20 flex items-center justify-center text-brand-purple text-xl mb-4">
+                                <i class="fa-solid fa-clapperboard"></i>
+                            </div>
+                            <span class="text-xs font-bold text-brand-purple uppercase tracking-wider">Most Popular Video Plan</span>
+                            <h3 class="text-2xl font-bold text-white my-2">Creator Pro Bundle</h3>
+                            <p class="text-xs text-slate-400 mb-6">Complete video workflow for YouTube channels and gaming creators desiring long & short content.</p>
+                            
+                            <div class="mb-6">
+                                <span class="text-4xl font-black text-white">Rs. 500,000</span>
+                                <span class="text-slate-400 text-xs font-medium">/ month</span>
+                            </div>
+
+                            <ul class="space-y-3 text-xs text-slate-300 border-t border-slate-800 pt-5 mb-6">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-purple mr-2.5"></i> 10 Short-Form Reels / TikToks</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-purple mr-2.5"></i> 2 Long-Form YouTube Video Edits (10-15 mins)</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-purple mr-2.5"></i> 2 Free High-CTR Custom YouTube Thumbnails</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-purple mr-2.5"></i> Motion Graphics & Animated Overlays</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-purple mr-2.5"></i> Audio Equalization & Noise Removal</li>
+                            </ul>
+                        </div>
+                        <button onclick="openPlanModal('Creator Pro Video Bundle', 'Rs. 50,000', 'Rs. 44,000')" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-purple to-pink-500 text-white font-extrabold shadow-lg hover:brightness-110 transition-all">
+                            Get Creator Pro
+                        </button>
+                    </div>
+
+                    <!-- Creator Tier 3: Creator Ultimate Streamer & Channel Pack -->
+                    <div class="glass-card p-8 rounded-3xl border border-brand-cyan/30 hover:border-brand-cyan/60 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-brand-cyan/20 flex items-center justify-center text-brand-cyan text-xl mb-4">
+                                <i class="fa-solid fa-gamepad"></i>
+                            </div>
+                            <span class="text-xs font-bold text-brand-cyan uppercase tracking-wider">Ultimate Channel Takeover</span>
+                            <h3 class="text-2xl font-bold text-white my-2">Creator Ultimate</h3>
+                            <p class="text-xs text-slate-400 mb-6">Dedicated video team for high-frequency channels, streamers, and gaming creators.</p>
+                            
+                            <div class="mb-6">
+                                <span class="text-4xl font-black text-white">Rs. 115,000</span>
+                                <span class="text-slate-400 text-xs font-medium">/ month</span>
+                            </div>
+
+                            <ul class="space-y-3 text-xs text-slate-300 border-t border-slate-800 pt-5 mb-6">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-cyan mr-2.5"></i> 20 Short-Form Videos / Shorts</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-cyan mr-2.5"></i> 5 Long-Form YouTube Edits / Montages</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-cyan mr-2.5"></i> Unlimited High CTR YouTube Thumbnails</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-cyan mr-2.5"></i> Dedicated Video Editor & Director</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-cyan mr-2.5"></i> Priority 24-48 Hour Delivery</li>
+                            </ul>
+                        </div>
+                        <button onclick="openPlanModal('Creator Ultimate Video Pack', 'Rs. 115,000', 'Rs. 92,000')" class="w-full py-3.5 rounded-xl bg-brand-cyan/20 hover:bg-brand-cyan/40 text-brand-cyan font-bold border border-brand-cyan/40 transition-all">
+                            Select Ultimate Pack
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-24 px-6 relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <!-- Left Column: Visual Highlights -->
+                    <div class="relative">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-brand-purple to-brand-cyan rounded-3xl blur opacity-30"></div>
+                        <div class="relative glass-card p-8 sm:p-10 rounded-3xl space-y-8">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 rounded-full bg-brand-purple/20 flex items-center justify-center text-brand-purple text-xl">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold">Analytical & Mathematical Precision</h4>
+                                    <p class="text-xs text-slate-400">Grounded in Physical Science principles for rigorous ad testing.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 rounded-full bg-brand-cyan/20 flex items-center justify-center text-brand-cyan text-xl">
+                                    <i class="fa-solid fa-eye"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold">Scroll-Stopping Visuals</h4>
+                                    <p class="text-xs text-slate-400">Thumbnails and posters designed to break feed monotony.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 rounded-full bg-brand-emerald/20 flex items-center justify-center text-brand-emerald text-xl">
+                                    <i class="fa-solid fa-clock-rotate-left"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold">Rapid Turnaround Times</h4>
+                                    <p class="text-xs text-slate-400">Streamlined production for fast execution without quality loss.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Narrative Story -->
+                    <div>
+                        <h2 class="text-xs font-bold text-brand-purple tracking-widest uppercase mb-3">About Aura Digital</h2>
+                        <h3 class="text-3xl sm:text-5xl font-black text-white mb-6">Bridging Analytical Strategy & Creative Artistry</h3>
+                        
+                        <div class="space-y-4 text-slate-300 leading-relaxed text-base">
+                            <p>
+                                At <strong class="text-white">Aura Digital Marketing Agency</strong>, we believe that true growth happens at the intersection of logical data science and striking visual design. 
+                            </p>
+                            <p>
+                                Founded with roots in Kandy, Sri Lanka, and serving global brands, our agency builds on a foundation of scientific problem solving combined with cutting-edge visual creation.
+                            </p>
+                            <p>
+                                Whether you need viral video editing, high-CTR YouTube thumbnails, or fully optimized ad funnels, we bring a methodical, high-converting edge to every campaign we produce.
+                            </p>
+                        </div>
+
+                        <div class="mt-8 flex items-center space-x-6">
+                            <div class="text-left">
+                                <div class="text-2xl font-black text-white">100%</div>
+                                <div class="text-xs text-slate-400">Dedicated Growth Focus</div>
+                            </div>
+                            <div class="h-10 w-[1px] bg-slate-800"></div>
+                            <div class="text-left">
+                                <div class="text-2xl font-black text-brand-cyan">24/7</div>
+                                <div class="text-xs text-slate-400">Client Support & Delivery</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-24 px-6 bg-slate-950/60 relative border-t border-slate-800/80">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-xs font-bold text-brand-cyan tracking-widest uppercase mb-3">Start Your Growth Journey</h2>
+                    <h3 class="text-3xl sm:text-5xl font-black text-white mb-4">Request a Free Quote or Strategy Call</h3>
+                    <p class="text-slate-400 max-w-xl mx-auto text-sm">Tell us about your brand goals and we'll reply with a custom strategy breakdown within 24 hours.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                    <!-- Agency Contact Info -->
+                    <div class="space-y-8 glass-card p-8 rounded-3xl h-fit">
+                        <h4 class="text-xl font-bold text-white mb-4">Direct Contact Info</h4>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-brand-purple/20 flex items-center justify-center text-brand-purple shrink-0">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-400">Email Us</div>
+                                <div class="text-sm font-semibold text-white">contact@auradigitalagency.com</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-brand-cyan/20 flex items-center justify-center text-brand-cyan shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-400">Agency Location</div>
+                                <div class="text-sm font-semibold text-white">Kandy, Sri Lanka (Global Remote)</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-brand-emerald/20 flex items-center justify-center text-brand-emerald shrink-0">
+                                <i class="fa-solid fa-comments"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-400">Live Support</div>
+                                <div class="text-sm font-semibold text-white">WhatsApp & Discord Consultation</div>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-slate-800 pt-6">
+                            <div class="text-xs text-slate-400 mb-3">Connect on Socials</div>
+                            <div class="flex space-x-3">
+                                <a href="#" class="w-9 h-9 rounded-full glass-card flex items-center justify-center text-slate-300 hover:text-white hover:bg-brand-purple transition-all"><i class="fa-brands fa-youtube text-sm"></i></a>
+                                <a href="#" class="w-9 h-9 rounded-full glass-card flex items-center justify-center text-slate-300 hover:text-white hover:bg-pink-500 transition-all"><i class="fa-brands fa-instagram text-sm"></i></a>
+                                <a href="#" class="w-9 h-9 rounded-full glass-card flex items-center justify-center text-slate-300 hover:text-white hover:bg-brand-cyan transition-all"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Contact Form -->
+                    <div class="lg:col-span-2 glass-card p-8 sm:p-12 rounded-3xl">
+                        <form id="agency-contact-form" class="space-y-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="contact-name" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Your Name</label>
+                                    <input type="text" id="contact-name" required class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition-colors text-sm" placeholder="John Doe">
+                                </div>
+                                <div>
+                                    <label for="contact-email" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Your Email</label>
+                                    <input type="email" id="contact-email" required class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition-colors text-sm" placeholder="john@brand.com">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="contact-service" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Primary Service Interested In</label>
+                                    <select id="contact-service" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition-colors text-sm">
+                                        <option value="All-in-One Growth">All-in-One Growth & Ads</option>
+                                        <option value="Graphic Design & Posters">Graphic Design & Posters</option>
+                                        <option value="YouTube Thumbnails">YouTube Thumbnails (High CTR)</option>
+                                        <option value="Video Editing & Reels">Video Editing & Reels</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="contact-budget" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Estimated Monthly Budget</label>
+                                    <select id="contact-budget" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition-colors text-sm">
+                                        <option value="Rs. 35,000 - Rs. 75,000">Rs. 35,000 - Rs. 75,000 / mo</option>
+                                        <option value="Rs. 75,000 - Rs. 150,000">Rs. 75,000 - Rs. 150,000 / mo</option>
+                                        <option value="Rs. 150,000+">Rs. 150,000+ / mo</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="contact-message" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Project Details / Goals</label>
+                                <textarea id="contact-message" rows="4" required class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition-colors text-sm resize-none" placeholder="Tell us about your brand, channels, and marketing targets..."></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-purple via-brand-accent to-brand-cyan text-white font-extrabold shadow-lg hover:shadow-brand-purple/30 hover:scale-[1.01] active:scale-95 transition-all duration-200">
+                                Submit Consultation Request
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Plan Selection Interactive Modal Overlay -->
+    <div id="plan-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md opacity-0 pointer-events-none modal-backdrop">
+        <div class="glass-card bg-slate-900 p-8 sm:p-10 rounded-3xl max-w-lg w-full border border-brand-purple/50 shadow-2xl relative">
+            <!-- Modal Close Button -->
+            <button onclick="closePlanModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white text-xl p-2 focus:outline-none" aria-label="Close Modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="mb-6">
+                <div class="inline-block px-3 py-1 rounded-full bg-brand-purple/20 text-brand-purple text-xs font-bold uppercase tracking-wider mb-2">
+                    Selected Payment Plan
+                </div>
+                <h3 id="modal-plan-name" class="text-2xl font-bold text-white">Pro Package</h3>
+                <p id="modal-plan-price" class="text-brand-cyan font-extrabold text-xl mt-1">Rs. 95,000 / month</p>
+            </div>
+
+            <form id="modal-booking-form" class="space-y-4">
+                <div>
+                    <label for="modal-name" class="block text-xs font-bold text-slate-300 uppercase mb-1">Full Name</label>
+                    <input type="text" id="modal-name" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-purple">
+                </div>
+                <div>
+                    <label for="modal-email" class="block text-xs font-bold text-slate-300 uppercase mb-1">Business Email</label>
+                    <input type="email" id="modal-email" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-purple">
+                </div>
+                <div>
+                    <label for="modal-notes" class="block text-xs font-bold text-slate-300 uppercase mb-1">Additional Notes / Channel Links</label>
+                    <textarea id="modal-notes" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-purple resize-none" placeholder="Provide any links or special requirements..."></textarea>
+                </div>
+                <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-purple to-brand-cyan text-white font-bold shadow-lg hover:brightness-110 transition-all">
+                    Confirm & Proceed to Onboarding
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast Container -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 px-6 py-4 rounded-2xl glass-card bg-slate-900 border border-brand-emerald text-white text-sm font-semibold flex items-center space-x-3 shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300">
+        <i class="fa-solid fa-circle-check text-brand-emerald text-lg"></i>
+        <span id="toast-message">Your message was sent successfully!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 py-12 bg-slate-950 text-center text-slate-500 text-xs">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-2">
+                <span class="text-white font-bold text-base">AURA DIGITAL</span>
+                <span>— Marketing & Creative Agency</span>
+            </div>
+            <p>&copy; <span id="year"></span> Aura Digital Marketing Agency. All rights reserved.</p>
+            <div class="flex space-x-6 text-slate-400">
+                <a href="#home" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#home" class="hover:text-white transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set dynamic current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile drawer menu state
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Interactive Pricing Toggle Logic
+        let isAnnual = false;
+        const toggleBtn = document.getElementById('billing-toggle');
+        const toggleCircle = document.getElementById('toggle-circle');
+        const priceVals = document.querySelectorAll('.price-val');
+        const annualNotes = document.querySelectorAll('.annual-note');
+        const monthlyLabel = document.getElementById('monthly-label');
+        const annualLabel = document.getElementById('annual-label');
+
+        toggleBtn.addEventListener('click', () => {
+            isAnnual = !isAnnual;
+
+            if (isAnnual) {
+                toggleCircle.classList.replace('translate-x-0', 'translate-x-8');
+                monthlyLabel.classList.replace('text-white', 'text-slate-400');
+                annualLabel.classList.replace('text-slate-400', 'text-white');
+            } else {
+                toggleCircle.classList.replace('translate-x-8', 'translate-x-0');
+                monthlyLabel.classList.replace('text-slate-400', 'text-white');
+                annualLabel.classList.replace('text-white', 'text-slate-400');
+            }
+
+            priceVals.forEach(priceEl => {
+                const monthlyPrice = priceEl.getAttribute('data-monthly');
+                const annualPrice = priceEl.getAttribute('data-annual');
+                priceEl.textContent = isAnnual ? annualPrice : monthlyPrice;
+            });
+
+            annualNotes.forEach(note => {
+                if (isAnnual) {
+                    note.classList.remove('hidden');
+                } else {
+                    note.classList.add('hidden');
+                }
+            });
+        });
+
+        // Plan Selection Modal Functions
+        const planModal = document.getElementById('plan-modal');
+        const modalPlanName = document.getElementById('modal-plan-name');
+        const modalPlanPrice = document.getElementById('modal-plan-price');
+
+        function openPlanModal(planName, priceMonthly, priceAnnual) {
+            const displayPrice = isAnnual 
+                ? `${priceAnnual} / month (Billed Annually)` 
+                : `${priceMonthly} / month`;
+
+            modalPlanName.textContent = planName;
+            modalPlanPrice.textContent = displayPrice;
+
+            planModal.classList.remove('pointer-events-none', 'opacity-0');
+            planModal.classList.add('opacity-100');
+        }
+
+        function closePlanModal() {
+            planModal.classList.add('pointer-events-none', 'opacity-0');
+            planModal.classList.remove('opacity-100');
+        }
+
+        // Close Modal when clicking outside box
+        planModal.addEventListener('click', (e) => {
+            if (e.target === planModal) {
+                closePlanModal();
+            }
+        });
+
+        // Toast Notification System
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 3500);
+        }
+
+        // Form Submission Event Handlers
+        document.getElementById('agency-contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast('Thank you! Your quote request has been sent successfully.');
+            e.target.reset();
+        });
+
+        document.getElementById('modal-booking-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            closePlanModal();
+            showToast('Plan selection confirmed! Our onboarding team will contact you.');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>
